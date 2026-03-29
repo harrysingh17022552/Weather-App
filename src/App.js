@@ -63,16 +63,16 @@ function App() {
     try {
       const response = await fetch(
         `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${getDate()}/${getDate(
-          3
+          3,
         )}?unitGroup=us&key=${
           process.env.REACT_APP_VISUAL_CROSSING_API_KEY
         }&contentType=json`,
-        { method: "GET", headers: { "content-type": "application/json" } }
+        { method: "GET", headers: { "content-type": "application/json" } },
       );
       if (response.ok) {
         setSearchItem([
           ...searchItem.filter(
-            (inthere) => inthere.toLowerCase() !== city.toLowerCase()
+            (inthere) => inthere.toLowerCase() !== city.toLowerCase(),
           ),
           city.toLowerCase(),
         ]);
@@ -84,27 +84,27 @@ function App() {
         return;
       } else if (response.status === 400) {
         showErrorMessage(
-          "400 BAD_REQUEST : The City you are searching for, is not valid, try to search for particular cities, not a continent or country"
+          "400 BAD_REQUEST : The City you are searching for, is not valid, try to search for particular cities, not a continent or country",
         );
         return;
       } else if (response.status === 401) {
         showErrorMessage(
-          "401 UNAUTHORIZED : For this error, please contact me on my mail:harishnigam21@gmail.com"
+          "401 UNAUTHORIZED : For this error, please contact me on my mail:harishnigam21@gmail.com",
         );
         return;
       } else if (response.status === 404) {
         showErrorMessage(
-          "404 NOT FOUND : The City you are searching for, is not valid, try to search for particular cities, not a continent or country"
+          "404 NOT FOUND : The City you are searching for, is not valid, try to search for particular cities, not a continent or country",
         );
         return;
       } else if (response.status === 429) {
         showErrorMessage(
-          "400 TOO MANY REQUESTS : The account has exceeded its assigned limits."
+          "400 TOO MANY REQUESTS : The account has exceeded its assigned limits.",
         );
         return;
       } else if (response.status === 500) {
         showErrorMessage(
-          "400 INTERNAL SERVER ERROR : A general error has occurred processing the request."
+          "400 INTERNAL SERVER ERROR : A general error has occurred processing the request.",
         );
         return;
       }
@@ -120,11 +120,11 @@ function App() {
         `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${
           coordinates.latitude
         }%2C${coordinates.longitude}/${getDate()}/${getDate(
-          3
+          3,
         )}?unitGroup=us&key=${
           process.env.REACT_APP_VISUAL_CROSSING_API_KEY
         }&contentType=json`,
-        { method: "GET", headers: { "content-type": "application/json" } }
+        { method: "GET", headers: { "content-type": "application/json" } },
       );
       if (response.ok) {
         const data = await response.json();
@@ -188,7 +188,7 @@ function App() {
     const component = weatherList().filter((item) =>
       weatherData.currentConditions.icon
         .toLowerCase()
-        .includes(item.name.toLowerCase())
+        .includes(item.name.toLowerCase()),
     );
     document.body.style.backgroundImage = `url(${component[0].bg})`;
     return component[0].image;
@@ -225,7 +225,10 @@ function App() {
         <span className="loarder md:scale-150"></span>
       </div>
       {/* Takes error message from API and display here */}
-      <p ref={errorRef} className="text-red-800 text-center md:text-2xl bg-black/80 rounded-xl py-8 px-2"></p>
+      <p
+        ref={errorRef}
+        className="text-red-800 text-center md:text-2xl bg-black/80 rounded-xl py-8 px-2"
+      ></p>
     </section>
   ) : (
     //main section for this page
@@ -279,8 +282,8 @@ function App() {
                           setSearchItem(
                             searchItem.filter(
                               (inthere) =>
-                                inthere.toLowerCase() !== item.toLowerCase()
-                            )
+                                inthere.toLowerCase() !== item.toLowerCase(),
+                            ),
                           );
                         }, 1000);
                       }}
@@ -422,7 +425,7 @@ function App() {
               ) : (
                 <strong className="after:content-['°C']">
                   {Math.ceil(
-                    ((weatherData.currentConditions.temp - 32) * 5) / 9
+                    ((weatherData.currentConditions.temp - 32) * 5) / 9,
                   )}
                 </strong>
               )}
@@ -466,19 +469,19 @@ function App() {
                   {item.datetime.slice(-2)}/{item.datetime.slice(5, 7)}
                 </strong>
                 {(() => {
-                  const IconComponent = weatherList().filter((weather) =>
-                    item.icon.toLowerCase().includes(weather.name.toLowerCase())
-                  )[0];
+                  const match = weatherList().find((weather) =>
+                    item.icon
+                      .toLowerCase()
+                      .includes(weather.name.toLowerCase()),
+                  );
 
-                  if (IconComponent) {
-                    return (
-                      <IconComponent.icon
-                        className={`icon ${IconComponent.classname}`}
-                      />
-                    );
+                  if (match) {
+                    const Icon = match.icon; // ✅ Capitalized component
+
+                    return <Icon className={`icon ${match.classname}`} />;
                   }
 
-                  return null; // or a default icon like <FaQuestionCircle />
+                  return null;
                 })()}
                 {tempUnit === "fahrenheit" ? (
                   <h1 className="after:content-['°F']">
