@@ -71,13 +71,13 @@ div {
 /* styling for loader and animating it as rotate */
 .loarder {
   margin: 1rem;
-  height: 20px;
-  width: 20px;
+  height: 50px;
+  width: 50px;
   background-color: transparent;
-  border-top: 4px solid violet;
-  border-left: 4px solid indigo;
-  border-bottom: 4px solid blue;
-  border-right: 4px solid green;
+  border-top: 6px solid violet;
+  border-left: 6px solid transparent;
+  border-bottom: 6px solid blue;
+  border-right: 6px solid green;
   border-radius: 50%;
   animation: rotate 0.5s linear 0s infinite normal none;
 }

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+// eslint-disable-next-line react-hooks/exhaustive-deps
 import { IoIosRefresh } from "react-icons/io";
 import { GiHeatHaze } from "react-icons/gi";
 import { WiHumidity } from "react-icons/wi";
@@ -219,11 +221,11 @@ function App() {
     //loading container, loads till data fetch and store in state
     <section className="flex flex-col gap-8 items-center w-screen h-screen justify-center">
       <div className="flex justify-center items-center">
-        <strong className="text-xl md:text-4xl">Loading</strong>
+        <strong className="text-xl md:text-4xl animate-bounce">Loading</strong>
         <span className="loarder md:scale-150"></span>
       </div>
       {/* Takes error message from API and display here */}
-      <p ref={errorRef} className="text-red-800 text-center md:text-2xl"></p>
+      <p ref={errorRef} className="text-red-800 text-center md:text-2xl bg-black/80 rounded-xl py-8 px-2"></p>
     </section>
   ) : (
     //main section for this page
